@@ -159,8 +159,15 @@ contract ZkSafebox is Context {
         require(needWalletNum > 0, "ZkSafebox::setSocialRecover: needWalletNum must > 0");
 
         SafeBox storage box = owner2safebox[_msgSender()];
-
         require(box.boxhash != bytes32(0), "ZkSafebox::setSocialRecover: boxhash not set");
+
+        if (choice == CoverChoice.CoverOwner) {
+            require(
+                owner2choice2recover[_msgSender()][CoverChoice.CoverBoxhash].needWalletNum > 0, 
+                "ZkSafebox::setSocialRecover: need setSocialRecover CoverBoxhash first"
+            );
+        }
+
         require(!usedProof[proof[0]], "ZkSafebox::setSocialRecover: proof used");
         require(keccak256(abi.encodePacked(pswHash, _msgSender())) == box.boxhash, "ZkSafebox::setSocialRecover: pswHash error");
         require(verifyProof(proof, pswHash, address(0), 0, allHash), "ZkSafebox::setSocialRecover: verifyProof fail");
