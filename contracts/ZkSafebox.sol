@@ -37,7 +37,7 @@ contract ZkSafebox is Context {
 
     mapping(address => SafeBox) public owner2safebox;
 
-    mapping(uint => bool) public usedProof;
+    mapping(uint => bool) internal usedProof;
 
 
     constructor() {}
@@ -146,6 +146,15 @@ contract ZkSafebox is Context {
     }
 
     mapping(address => mapping(CoverChoice => SocialRecover)) public owner2choice2recover;
+
+
+    function getRecoverWallets(
+        address owner, 
+        CoverChoice choice
+    ) public view returns (address[] memory needWallets, address[] memory doneWallets) {
+        SocialRecover memory recover = owner2choice2recover[owner][choice];
+        return (recover.needWallets, recover.doneWallets);
+    }
 
 
     function setSocialRecover(

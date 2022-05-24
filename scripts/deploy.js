@@ -2,38 +2,53 @@ const hre = require('hardhat')
 const fs = require('fs')
 const { BigNumber } = require('ethers')
 
-// streamPay deployed: 0xd8cf6CB47fDf8384D7a87E39F37E585fFdF08155
-// zkPay deployed: 0x426A2aF1D0bD8996E693aa8d44F2EB406d54BEf8
-// zkPayroll deployed: 0x51A28a9A15047f46AA0BD587d3327a086cae55BE
-// usdt deployed: 0x822CA080e094Bf068090554A19Bc3D6618c800B3
-// busd deployed: 0xB68A1de84D11D4b8f4e7826687750262cDC73b7e
+
+// usdt deployed: 0x2F4117b7CCb0605C7BC40Dd7F6a023827fBFB840
+// busd deployed: 0xA2F3f13A599fC56a4965Bb2c306a42313c24217a
+// zkSafebox deployed: 0x7B6a4fe1cBe55049CbDa9719E60AeE7471A5f02F
+// nameService deployed: 0xC20DA87779aC7C9ff764667f6B81c46A0a0131E0
+// safeboxHelp deployed: 0x996E6d5042Ea9708E85a1D7E59Bb434BFb999bD2
 
 async function main() {
 	const accounts = await hre.ethers.getSigners()
+	const account1 = '0x05e6959423FFb22e04D873bB1013268aa34E24B8'
 
-	const StreamPay = await ethers.getContractFactory('StreamPay')
-	const streamPay = await StreamPay.deploy()
-	await streamPay.deployed()
-	console.log('streamPay deployed:', streamPay.address)
+	const MockERC20 = await ethers.getContractFactory('MockERC20')
+	const usdt = await MockERC20.deploy('MockUSDT', 'USDT')
+	await usdt.deployed()
+	console.log('usdt deployed:', usdt.address)
+	await usdt.mint(accounts[0].address, m(100000, 18))
+	console.log('usdt mint to accounts[0]', d(await usdt.balanceOf(accounts[0].address), 18))
+	await usdt.mint(account1, m(100000, 18))
+	console.log('usdt mint to account1', d(await usdt.balanceOf(account1), 18))
 
-	const ZkPay = await ethers.getContractFactory('ZkPay')
-	const zkPay = await ZkPay.deploy()
-	await zkPay.deployed()
-	console.log('zkPay deployed:', zkPay.address)
 
-	const ZkPayroll = await ethers.getContractFactory('ZkPayroll')
-	const zkPayroll = await ZkPayroll.deploy(streamPay.address, zkPay.address)
-	await zkPayroll.deployed()
-	console.log('zkPayroll deployed:', zkPayroll.address)
+	const busd = await MockERC20.deploy('MockBUSD', 'BUSD')
+	await busd.deployed()
+	console.log('busd deployed:', busd.address)
+	await busd.mint(accounts[0].address, m(100000, 18))
+	console.log('busd mint to accounts[0]', d(await busd.balanceOf(accounts[0].address), 18))
+	await busd.mint(account1, m(100000, 18))
+	console.log('busd mint to account1', d(await busd.balanceOf(account1), 18))
 
-	// const MockERC20 = await ethers.getContractFactory('MockERC20')
-	// // const usdt = await MockERC20.attach('0x822CA080e094Bf068090554A19Bc3D6618c800B3')
-	// const usd = await MockERC20.deploy('MockBUSD', 'BUSD')
-	// await usd.deployed()
-	// console.log('busd deployed:', usd.address)
 	
-	// await usd.mint('0x05e6959423FFb22e04D873bB1013268aa34E24B8', m(1000000, 18))
-	// await usd.mint(accounts[0].address, m(1000000, 18))
+	const ZkSafebox = await ethers.getContractFactory('ZkSafebox')
+	const zkSafebox = await ZkSafebox.deploy()
+	await zkSafebox.deployed()
+	console.log('zkSafebox deployed:', zkSafebox.address)
+	
+	
+	const NameService = await ethers.getContractFactory('NameService')
+	const nameService = await NameService.deploy()
+	await nameService.deployed()
+	console.log('nameService deployed:', nameService.address)
+	
+	
+	const SafeboxHelp = await ethers.getContractFactory('SafeboxHelp')
+	const safeboxHelp = await SafeboxHelp.deploy(zkSafebox.address, nameService.address)
+	await safeboxHelp.deployed()
+	console.log('safeboxHelp deployed:', safeboxHelp.address)
+
 	console.log('done')
 }
 

@@ -2,7 +2,7 @@ const { BigNumber } = require('ethers')
 const snarkjs = require("snarkjs")
 const fs = require("fs")
 
-describe('ZkSafebox-test-1', function () {
+describe('ZkSafebox-cover-test', function () {
     let accounts
     let provider
     let zkSafebox
@@ -115,6 +115,7 @@ describe('ZkSafebox-test-1', function () {
         }
     })
 
+
     it('setSocialRecover CoverOwner', async function () {
         let psw = 'abc123'
 
@@ -150,31 +151,53 @@ describe('ZkSafebox-test-1', function () {
         }
     })
 
+
     it('coverBoxhash', async function () {
-        let box = await zkSafebox.owner2safebox(accounts[0].address)
-        console.log(box)
+        await print(accounts[0].address)
         
         await zkSafebox.connect(accounts[1]).coverBoxhash(accounts[0].address)
         console.log('account 1 coverBoxhash done')
+
+        await print(accounts[0].address)
+
         await zkSafebox.connect(accounts[2]).coverBoxhash(accounts[0].address)
         console.log('account 2 coverBoxhash done')
  
-        box = await zkSafebox.owner2safebox(accounts[0].address)
-        console.log(box)
+        await print(accounts[0].address)
     })
 
+
     it('coverOwner', async function () {
-        let box = await zkSafebox.owner2safebox(accounts[0].address)
-        console.log(box)
+        await print(accounts[0].address)
         
         await zkSafebox.connect(accounts[1]).coverOwner(accounts[0].address, accounts[3].address)
         console.log('account 1 coverOwner done')
+
+        await print(accounts[0].address)
+        
         await zkSafebox.connect(accounts[2]).coverOwner(accounts[0].address, accounts[3].address)
         console.log('account 2 coverOwner done')
  
-        box = await zkSafebox.owner2safebox(accounts[0].address)
-        console.log(box)
+        await print(accounts[0].address)
     })
+
+
+    async function print(owner) {
+        console.log('')
+
+        let box = await zkSafebox.owner2safebox(owner)
+        console.log('box', box)
+
+        var {needWallets, doneWallets} = await zkSafebox.getRecoverWallets(owner, 0)
+        console.log('CoverBoxhash needWallets', needWallets)
+        console.log('CoverBoxhash doneWallets', doneWallets)
+
+        var {needWallets, doneWallets} = await zkSafebox.getRecoverWallets(owner, 1)
+        console.log('CoverOwner needWallets', needWallets)
+        console.log('CoverOwner doneWallets', doneWallets)
+
+        console.log('')
+    }
 
 
     
