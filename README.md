@@ -28,7 +28,7 @@
 <p>It can hide password, it works like signature, user signs the data with password, and the contract verify the signature.</p>
 <p>Actually, safebox use boxhash instead of password hash, which is hashed from password hash and wallet address, so every wallet has different boxhash, even though thay have the same password, if the password hash is cracked (like "password" or "123456" is much easy to be cracked), boxhash is still safe.</p>
 <div align="center"><img src="./doc/safebox-3.png"></div>
-<p>A safebox to a wallet, only the owner can withdraw, if the boxhash is cracked, the safebox is still safe.</p>
+<p>One safebox to One wallet, only the owner can withdraw, if the boxhash is cracked, the safebox is still safe.</p>
 <p>Following is how the "sign" works in zk circuit (in zk, the algorithm is called circuit).</p>
 <div align="center"><img src="./doc/safebox-4.png"></div>
 <p>Poseidon is a kind of hash algorithm, it's circuit friendly and popular in zk circuits, the SHA256 we tried, but it didn't work well, so we chose Poseidon circuit instead.</p>
@@ -66,6 +66,11 @@ The used proof was recorded in contract, so double spent is impossible. In other
 
 <li>If the project fail or be hacked, is my safebox safe?
 <p>Yes, the safebox is in the contract, and the contract has no owner, it's running forever and no one can modify it.</p>
+
+<li>How long did zkSafebox developed?
+<p>Since 2022-5-4, we built zkPayroll for BNB Hackthon <https://dorahacks.io/buidl/2790>.
+<br>Then 2022-5-23, we split zkPay from zkPayroll, rebuild as zkSafebox, for ETH Hackthon <https://gitcoin.co/issue/28870>.
+<br>Future, zkSafebox will lanuch stand-alone.</p>
 
 <li>What is the product design base on?
 <p>Stay simple, stay protocol.

@@ -47,6 +47,16 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
         process.env.ETH_PK_2,
       ]
     },
+    matic_testnet: {
+      url: 'https://matic-mumbai.chainstacklabs.com',
+      chainId: 80001,
+      from: process.env.ETH_ADDRESS_0,
+      accounts: [
+        process.env.ETH_PK_0,
+        process.env.ETH_PK_1,
+        process.env.ETH_PK_2,
+      ]
+    },
     bsc_testnet: {
 			url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
 			chainId: 97,
