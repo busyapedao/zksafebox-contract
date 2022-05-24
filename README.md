@@ -1,7 +1,7 @@
-<div align="center"><img src="./doc/zknewlogo3.png"></div>
+<div align="center"><img src="./doc/logo.png"></div>
+<p> ZKSafebox is double security for assets, your private key and your password. with ZK-SNARK, the password is hided. The contracts have no owner, no backend, that means ZKSafebox is running as a protocol.</p>
 
-### ZKSafebox is double security for assets, your private key and your password. with ZK-SNARK, the password is hided. The contracts have no owner, no backend, that means ZKSafebox is running as a protocol.
-#### Double Security:
+### Double Security:
 <b><ul>
     <li>Private key is taken, safebox is still safe.
     <li>Password is taken, safebox is still safe.
