@@ -50,27 +50,27 @@ The used proof was recorded in contract, so double spent is impossible. In other
 <br>
 
 ### 3.Extend Feature
-#### Withdraw To ERC20Receiver
+<ul>
+<li>Withdraw To ERC20Receiver
 <p>Supply IERC20Receiver, deposit to ERC20Receiver contract (like Swap or Farming), it donsen't need approve.</p>
-
-#### Internal Transfer
+<li>Internal Transfer
 <p>Assets transfer from safebox to safebox.</p>
+</ul>
 <br>
 <br>
 
 ## FAQ
-#### Where is the password store?
-In your mind.<br>
-<br>
+<ul>
+<li>Where is the password store?
+<p>In your mind.</p>
 
-#### If the project fail or be hacked, is my safebox safe?
-Yes, the safebox is in the contract, and the contract has no owner, it's running forever and no one can modify it.<br>
-<br>
+<li>If the project fail or be hacked, is my safebox safe?
+<p>Yes, the safebox is in the contract, and the contract has no owner, it's running forever and no one can modify it.</p>
 
-#### What is the product design base on?
-Stay simple, stay protocol.<br>
-A assets tool as Metamask.<br>
-<br>
+<li>What is the product design base on?
+<p>Stay simple, stay protocol.
+<br>A assets tool as Metamask.</p>
 
-#### What is the future plan?
-Safe to earn? I guess.<br>
+<li>What is the future plan?
+<p>Safe to earn? I guess.<br>
+</ul>
