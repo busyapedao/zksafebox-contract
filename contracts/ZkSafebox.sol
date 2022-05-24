@@ -129,6 +129,11 @@ contract ZkSafebox is Context {
 
         emit Withdraw(box.owner, to, tokenAddr, amount);
     }
+
+
+    ///////////////////////////////////
+    // extend feature
+    ///////////////////////////////////
     
     
     function withdrawToERC20Receiver(
