@@ -16,9 +16,9 @@ contract SafeboxHelp {
         zkSafebox = ZkSafebox(zkSafeboxAddr);
         nameService = NameService(nameServiceAddr);
     }
-    
 
-    function rechargeCheckName(
+
+    function depositCheckName(
         string memory name,
         address sender,
         address owner,
@@ -28,9 +28,9 @@ contract SafeboxHelp {
         require(
             keccak256(abi.encodePacked(name)) ==
                 keccak256(abi.encodePacked(nameService.nameOf(owner))),
-            "SafeboxHelp::recharge: name error"
+            "SafeboxHelp::deposit: name error"
         );
 
-        zkSafebox.recharge(sender, owner, tokenAddr, amount);
+        zkSafebox.deposit(sender, owner, tokenAddr, amount);
     }
 }

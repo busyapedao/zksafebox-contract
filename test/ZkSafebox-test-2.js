@@ -41,12 +41,12 @@ describe('ZkSafebox-test-2', function () {
     })
 
 
-    it('recharge', async function () {
+    it('deposit', async function () {
         await usdt.connect(accounts[1]).approve(zkSafebox.address, m(100, 18))
         console.log('step 1 approve done')
 
-        await zkSafebox.connect(accounts[1]).recharge(accounts[1].address, accounts[0].address, usdt.address, m(100, 18))
-        console.log('step 2 recharge done')
+        await zkSafebox.connect(accounts[1]).deposit(accounts[1].address, accounts[0].address, usdt.address, m(100, 18))
+        console.log('step 2 deposit done')
 
         await print()
     })
