@@ -131,26 +131,27 @@ contract ZkSafebox is Context {
     }
     
     
-    function withdrawToERC20Receiver (
+    function withdrawToERC20Receiver(
         uint[8] memory proof,
         uint pswHash,
         address tokenAddr,
         uint amount,
         uint allHash,
-        address to,
-        bytes calldata data
+        address to
     ) public {
-        require(!usedProof[proof[0]], "ZkSafebox::withdraw: proof used");
+        require(!usedProof[proof[0]], "ZkSafebox::withdrawToERC20Receiver: proof used");
 
         SafeBox storage box = owner2safebox[_msgSender()];
-        require(keccak256(abi.encodePacked(pswHash, _msgSender())) == box.boxhash, "ZkSafebox::withdraw: pswHash error");
-        require(verifyProof(proof, pswHash, tokenAddr, amount, allHash), "ZkSafebox::withdraw: verifyProof fail");
+        require(keccak256(abi.encodePacked(pswHash, _msgSender())) == box.boxhash, "ZkSafebox::withdrawToERC20Receiver: pswHash error");
+        require(verifyProof(proof, pswHash, tokenAddr, amount, allHash), "ZkSafebox::withdrawToERC20Receiver: verifyProof fail");
 
         usedProof[proof[0]] = true;
         box.balance[tokenAddr] -= amount;
 
         IERC20(tokenAddr).safeTransfer(to, amount);
-        IERC20Receiver(to).onERC20Received(_msgSender(), address(this), amount, data);
+        bytes memory data = abi.encode(tokenAddr);
+        bytes4 retval = IERC20Receiver(to).onERC20Received(_msgSender(), address(this), amount, data);
+        require(retval == IERC20Receiver.onERC20Received.selector, "ZkSafebox::withdrawToERC20Receiver: onERC20Received return error");
 
         emit Withdraw(box.owner, to, tokenAddr, amount);
     }
@@ -164,11 +165,11 @@ contract ZkSafebox is Context {
         uint allHash,
         address toOwner
     ) public {
-        require(!usedProof[proof[0]], "ZkSafebox::withdraw: proof used");
+        require(!usedProof[proof[0]], "ZkSafebox::transfer: proof used");
 
         SafeBox storage box = owner2safebox[_msgSender()];
-        require(keccak256(abi.encodePacked(pswHash, _msgSender())) == box.boxhash, "ZkSafebox::withdraw: pswHash error");
-        require(verifyProof(proof, pswHash, tokenAddr, amount, allHash), "ZkSafebox::withdraw: verifyProof fail");
+        require(keccak256(abi.encodePacked(pswHash, _msgSender())) == box.boxhash, "ZkSafebox::transfer: pswHash error");
+        require(verifyProof(proof, pswHash, tokenAddr, amount, allHash), "ZkSafebox::transfer: verifyProof fail");
 
         usedProof[proof[0]] = true;
         box.balance[tokenAddr] -= amount;
