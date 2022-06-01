@@ -9,27 +9,34 @@ const { BigNumber } = require('ethers')
 // nameService deployed: 0xe2De4D38DB1B04d32011dC3eC0Af7420de18DCD2
 // safeboxHelp deployed: 0x7A7630c80d44E87402afd11C939C03F43b4785f4
 
+// matic_testnet
+// usdt deployed: 0x6009234967B1c7872de00BB3f3e77610b8D6dc9e
+// busd deployed: 0x6D288698986A3b1C1286fB074c45Ac2F10409E28
+// zkSafebox deployed: 0x072777f02Ad827079F188D8175FB155b0e75343D
+// nameService deployed: 0xF21cA68b8621326301653276E15DE94cf5b0DE4E
+// safeboxHelp deployed: 0x36c2A57bdb0cE4082Da82a1a8E84aE5f490f0134
+
 async function main() {
 	const accounts = await hre.ethers.getSigners()
 	const account1 = '0x05e6959423FFb22e04D873bB1013268aa34E24B8'
 
-	// const MockERC20 = await ethers.getContractFactory('MockERC20')
-	// const usdt = await MockERC20.deploy('MockUSDT', 'USDT')
-	// await usdt.deployed()
-	// console.log('usdt deployed:', usdt.address)
-	// await usdt.mint(accounts[0].address, m(100000, 18))
-	// console.log('usdt mint to accounts[0]', d(await usdt.balanceOf(accounts[0].address), 18))
-	// await usdt.mint(account1, m(100000, 18))
-	// console.log('usdt mint to account1', d(await usdt.balanceOf(account1), 18))
+	const MockERC20 = await ethers.getContractFactory('MockERC20')
+	const usdt = await MockERC20.deploy('MockUSDT', 'USDT')
+	await usdt.deployed()
+	console.log('usdt deployed:', usdt.address)
+	await usdt.mint(accounts[0].address, m(100000, 18))
+	console.log('usdt mint to accounts[0]', d(await usdt.balanceOf(accounts[0].address), 18))
+	await usdt.mint(account1, m(100000, 18))
+	console.log('usdt mint to account1', d(await usdt.balanceOf(account1), 18))
 
 
-	// const busd = await MockERC20.deploy('MockBUSD', 'BUSD')
-	// await busd.deployed()
-	// console.log('busd deployed:', busd.address)
-	// await busd.mint(accounts[0].address, m(100000, 18))
-	// console.log('busd mint to accounts[0]', d(await busd.balanceOf(accounts[0].address), 18))
-	// await busd.mint(account1, m(100000, 18))
-	// console.log('busd mint to account1', d(await busd.balanceOf(account1), 18))
+	const busd = await MockERC20.deploy('MockBUSD', 'BUSD')
+	await busd.deployed()
+	console.log('busd deployed:', busd.address)
+	await busd.mint(accounts[0].address, m(100000, 18))
+	console.log('busd mint to accounts[0]', d(await busd.balanceOf(accounts[0].address), 18))
+	await busd.mint(account1, m(100000, 18))
+	console.log('busd mint to account1', d(await busd.balanceOf(account1), 18))
 
 	
 	const ZkSafebox = await ethers.getContractFactory('ZkSafebox')

@@ -68,7 +68,7 @@ The used proof was recorded in contract, so double spent is impossible. In other
 <p>Yes, the safebox is in the contract, and the contract has no owner, it's running forever and no one can modify it.</p>
 
 <li>How long did zkSafebox developed?
-<p>Since 2022-5-4, we built zkPayroll for BNB Hackthon <https://dorahacks.io/buidl/2790>.
+<p>Since 2022-5-4 to 2022-5-11, we built zkPayroll for BNB Hackthon <https://dorahacks.io/buidl/2790>.
 <br>Then 2022-5-23, we split zkPay from zkPayroll, rebuild as zkSafebox, for ETH Hackthon <https://gitcoin.co/issue/28870>.
 <br>Future, zkSafebox will lanuch stand-alone.</p>
 
